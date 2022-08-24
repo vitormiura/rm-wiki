@@ -90,8 +90,8 @@ export default function Home({ data }) {
 
         <p className={styles.description}>
           rico & morto wiki!
+          <h6>by: vitor miura</h6>
         </p>
-
         <form className={styles.search} onSubmit={submitSearch}>
           <input name='query' type='search' />
           <button>Search</button>
