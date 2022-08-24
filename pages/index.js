@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
 const defaultEndpoint = 'https://rickandmortyapi.com/api/character';
 
@@ -101,10 +102,12 @@ export default function Home({ data }) {
             const { id, name, image } = result;
             return (
               <li key={ id } className={styles.card}>
-                <a href="">
+                <Link href='/character/[id]' as={`/character/${id}`}>
+                <a>
                   <img src={ image } alt={`${ name } Thumb`}></img>
                   <h2>{ name }</h2>
                 </a>
+                </Link>
               </li>
             )
           })}
@@ -119,8 +122,7 @@ export default function Home({ data }) {
       <footer className={styles.footer}>
         <a
           href="www.vitormiura.dev"
-          target="_blank"
-          rel="noopener noreferrer"
+          target="_blank" 
         >
           Powered by{' BINLADEN'}
         </a>
