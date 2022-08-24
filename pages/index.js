@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 const defaultEndpoint = 'https://rickandmortyapi.com/api/character';
@@ -60,6 +59,21 @@ export default function Home({ data }) {
     })
   }
 
+  function submitSearch(e) {
+    e.preventDefault();
+
+    const { currentTarget = {} } = e;
+    const fields = Array.from(currentTarget?.elements);
+    const fieldQuery = fields.find(field => field.name === 'query');
+
+    const value = fieldQuery.value || '';
+    const endpoint = `https://rickandmortyapi.com/api/character/?name=${value}`;
+
+    updatePage({
+      current: endpoint
+    });
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -77,6 +91,11 @@ export default function Home({ data }) {
           rico & morto wiki!
         </p>
 
+        <form className={styles.search} onSubmit={submitSearch}>
+          <input name='query' type='search' />
+          <button>Search</button>
+        </form>
+
         <ul className={styles.grid}>
           {results.map(result => {
             const { id, name, image } = result;
@@ -91,6 +110,7 @@ export default function Home({ data }) {
           })}
 
         </ul>
+
         <p>
           <button onClick={loadMore}>Load more</button>
         </p>
